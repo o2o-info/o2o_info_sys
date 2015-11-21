@@ -28,10 +28,10 @@ def output_info_to_csv(file_name):
 
         for supplier in suppliers:
             row = [supplier['supplierName'], supplier['contactPhone'], supplier['address'], supplier['operateStartTime']+'-'+supplier['operateEndTime']]
-            row[0].encode('utf-8').strip()
+            row[0] = row[0].encode('utf-8').strip()
             row[1] = u','.join(row[1]).encode('utf-8').strip()
-            row[2].encode('utf-8').strip()
-            row[3].encode('utf-8').strip()
+            row[2] = row[2].encode('utf-8').strip()
+            row[3] = row[3].encode('utf-8').strip()
             csv_writer.writerow(row)
 
 
