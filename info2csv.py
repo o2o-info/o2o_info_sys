@@ -19,7 +19,7 @@ client = pymongo.MongoClient(MONGO_URI)
 db = client[MONGO_DATABASE]
 
 def output_info_to_csv(file_name):
-    row_keys = ['Supplier Name', 'Phone Numbers', 'Address', 'Open Time']
+    row_keys = [col.encode('utf-8').strip() for col in [u'店名', u'电话', u'地址', u'营业时间']]
     with open(file_name, 'wb') as f:
         csv_writer = csv.writer(f)
 
@@ -27,7 +27,8 @@ def output_info_to_csv(file_name):
         suppliers = get_all_suppliers()
 
         for supplier in suppliers:
-            csv_writer.writerow([supplier['supplierName'], supplier['contactPhone'], supplier['address'], supplier['operateStartTime']+'-'+supplier['operateEndTime']])
+            row = [supplier['supplierName'], supplier['contactPhone'], supplier['address'], supplier['operateStartTime']+'-'+supplier['operateEndTime']]
+            csv_writer.writerow([col.encode('utf-8').strip() for col in row])
 
 
 def get_all_suppliers():
